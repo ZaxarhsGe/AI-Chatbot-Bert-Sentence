@@ -122,9 +122,6 @@ Returns the main webpage (`index.html`), which serves as the user interface for 
 ## Error Handling
 - If an error occurs during sentence encoding or chatbot response generation, an appropriate error message will be returned to the user.
 
-## License
-This project is open-source and free to use for educational and commercial purposes.
-
 ## Acknowledgments
 - [Hugging Face Transformers](https://github.com/huggingface/transformers) for the pre-trained BERT models.
 - [Sentence Transformers](https://www.sbert.net/) for providing a straightforward API to encode sentences.
