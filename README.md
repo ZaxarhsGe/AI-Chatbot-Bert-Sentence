@@ -1,5 +1,6 @@
-# AI-Chatbot-Bert-Sentence
-This repository contains a chatbot application that uses BERT-based sentence transformers to find the best-matching responses to user queries. It leverages a pre-defined set of question-answer pairs to respond to questions in both Greek and English. The application is built using Python, Flask, and PyTorch, and is accessible through an HTTPS endpoint.
+# Multilingual Chatbot with BERT and Flask
+
+This repository contains a chatbot application that uses BERT-based sentence transformers to find the best-matching responses to user queries. It leverages a pre-defined set of question-answer pairs to respond to questions in both Greek and English. The application is built using Python, Flask, and PyTorch, and is deployed using AWS.
 
 ## Features
 - **Multilingual Support:** Handles both Greek and English queries using a BERT-based model.
@@ -7,6 +8,7 @@ This repository contains a chatbot application that uses BERT-based sentence tra
 - **REST API:** Offers a `/chat` endpoint to interact with the chatbot.
 - **CORS Support:** Enabled with Flask-CORS for cross-origin resource sharing.
 - **Pre-defined Q&A:** Utilizes a hardcoded list of question-answer pairs.
+- **Production Deployment:** Hosted on AWS EC2 for robust and scalable deployment.
 
 ## Prerequisites
 - Python 3.x
@@ -16,6 +18,7 @@ This repository contains a chatbot application that uses BERT-based sentence tra
 - scikit-learn
 - Transformers
 - Sentence Transformers
+- An active AWS account (for deployment)
 
 ## Installation
 1. Clone the repository:
@@ -47,15 +50,46 @@ This repository contains a chatbot application that uses BERT-based sentence tra
     ```
 
 ## Usage
-1. **Run the application:**
+1. **Run the application locally:**
     ```bash
     python app.py
     ```
     The application will start on port 8000 by default.
 
-2. **Access the Chatbot:**
+2. **Access the Chatbot Locally:**
    - Navigate to `http://localhost:8000` to access the web interface.
    - Use the `/chat` endpoint with a `POST` request to interact with the chatbot via JSON.
+
+## Deployment on AWS
+1. **Launch an EC2 Instance:**
+   - Log in to your AWS account and navigate to the EC2 Dashboard.
+   - Launch a new EC2 instance (e.g., `m5.large` for sufficient processing power).
+   - Choose an appropriate AMI (Amazon Machine Image) with Python installed (e.g., Ubuntu 20.04 LTS).
+   
+2. **Set Up the EC2 Instance:**
+   - SSH into the instance:
+     ```bash
+     ssh -i "your-key.pem" ubuntu@your-ec2-public-dns
+     ```
+   - Install required packages on the EC2 instance:
+     ```bash
+     sudo apt update
+     sudo apt install python3-pip
+     pip3 install -r requirements.txt
+     ```
+
+3. **Deploy the Application:**
+   - Upload the application files to the EC2 instance using `scp` or a similar method.
+   - Start the Flask app with a production-ready server, such as Gunicorn:
+     ```bash
+     gunicorn --bind 0.0.0.0:8000 app:app
+     ```
+
+4. **Configure Security Groups:**
+   - Open port 8000 in the EC2 instance's security group to allow traffic to the application.
+
+5. **Access the Application:**
+   - Navigate to `http://your-ec2-public-dns:8000` to access the chatbot.
 
 ## API Endpoints
 ### `GET /`
@@ -94,10 +128,12 @@ This project is open-source and free to use for educational and commercial purpo
 ## Acknowledgments
 - [Hugging Face Transformers](https://github.com/huggingface/transformers) for the pre-trained BERT models.
 - [Sentence Transformers](https://www.sbert.net/) for providing a straightforward API to encode sentences.
+- **AWS** for providing a robust platform to deploy and host this chatbot application.
 
 ## Troubleshooting
 - If the chatbot does not respond as expected, check for errors in the console where the Flask app is running.
 - Ensure that all dependencies are installed correctly and that the `requirements.txt` file includes all necessary packages.
+- Verify that the correct security groups are configured in AWS to allow traffic to the EC2 instance.
 
 ## Contact
 For further questions or support, please reach out to `maxilaria.gr@gmail.com`.
