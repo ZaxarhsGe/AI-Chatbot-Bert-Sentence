@@ -1,5 +1,5 @@
 # AI-Chatbot-Bert-Sentence
-This repository contains a chatbot application that uses BERT-based sentence transformers to find the best-matching responses to user queries. It leverages a pre-defined set of question-answer pairs to respond to questions in both Greek and English. The application is built using Python, Flask, and PyTorch, and is accessible through an HTTP endpoint.
+This repository contains a chatbot application that uses BERT-based sentence transformers to find the best-matching responses to user queries. It leverages a pre-defined set of question-answer pairs to respond to questions in both Greek and English. The application is built using Python, Flask, and PyTorch, and is accessible through an HTTPS endpoint.
 
 ## Features
 - **Multilingual Support:** Handles both Greek and English queries using a BERT-based model.
