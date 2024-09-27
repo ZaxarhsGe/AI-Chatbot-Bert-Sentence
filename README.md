@@ -1,4 +1,4 @@
-# Multilingual Chatbot with BERT and Flask
+# AI Chatbot with BERT and Flask
 
 This repository contains a chatbot application that uses BERT-based sentence transformers to find the best-matching responses to user queries. It leverages a pre-defined set of question-answer pairs to respond to questions in both Greek and English. The application is built using Python, Flask, and PyTorch, and is deployed using AWS.
 
