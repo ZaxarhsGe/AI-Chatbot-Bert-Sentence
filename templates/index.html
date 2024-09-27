@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        
+        #toggle-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            width: 300px;
+            max-width: 100%;
+            padding: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 14px;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            background-color: #000;
+            color: white;
+        }
+
+        .chat-message.bot {
+            align-self: flex-start;
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .input-container {
+            display: flex;
+            padding-top: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"]:focus {
+            border-color: #000;
+        }
+
+        button {
+            padding: 10px 12px;
+            border: none;
+            background-color: #000;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 5px;
+            font-size: 14px;
+        }
+
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+
+        
+        .chat-container.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <button id="toggle-button" onclick="toggleChat()">Chatbot</button>
+
+    <div class="chat-container hidden" id="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message here..." onkeyup="checkInput()" />
+            <button id="send-button" onclick="sendMessage()" disabled>Send</button>
+        </div>
+    </div>
+
+    <script>
+        const userInputElement = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+        const sendButton = document.getElementById('send-button');
+        const chatContainer = document.getElementById('chat-container');
+
+        function checkInput() {
+            sendButton.disabled = !userInputElement.value.trim();
+        }
+
+        function sendMessage() {
+            const userInput = userInputElement.value.trim();
+
+            if (!userInput) return;
+
+            
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('chat-message', 'user');
+            userMessage.innerText = userInput;
+            chatBox.appendChild(userMessage);
+
+            
+            fetch("*****************", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('chat-message', 'bot');
+                botMessage.innerText = data.response;
+                chatBox.appendChild(botMessage);
+
+                
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+
+            
+            userInputElement.value = '';
+            sendButton.disabled = true;
+        }
+
+        
+        function toggleChat() {
+            chatContainer.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>
