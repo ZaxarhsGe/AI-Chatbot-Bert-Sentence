@@ -113,4 +113,4 @@ Serves the main chatbot webpage (`index.html`).
 ## 📧 Contact  
 For inquiries or collaboration opportunities:  
 **George Zacharis**  
-📩 `maxilaria.gr@gmail.com`  
+📩 `gzachrs@gmail.com`  
